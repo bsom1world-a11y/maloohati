@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="ملاحظاتي — دفتر ملاحظات شخصي وآمن يعمل مباشرة في متصفحك" />
+  <meta name="color-scheme" content="light dark" />
+  <title>ملاحظاتي | دفتر ملاحظاتك الخاص</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%234f46e5'/%3E%3Cpath d='M30 24h28l14 14v38a6 6 0 0 1-6 6H30a6 6 0 0 1-6-6V30a6 6 0 0 1 6-6z' fill='none' stroke='white' stroke-width='6'/%3E%3Cpath d='M58 24v14h14' fill='none' stroke='white' stroke-width='6'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ==================== مكتبة الأيقونات ==================== -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-notes" viewBox="0 0 24 24"><path d="M4 4a2 2 0 0 1 2-2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9.5 10.8l-1.6.8A2 2 0 0 0 6.8 13.5V15a1 1 0 0 0 1 1h8.4a1 1 0 0 0 1-1v-1.5a2 2 0 0 0-1.1-1.8l-1.6-.8A2 2 0 0 1 14.5 9V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4h-7a2 2 0 0 0 0 4 1 1 0 0 1 1 1v2a2 2 0 0 1-1 1.8z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4.5A1.5 1.5 0 0 1 9.5 3h5A1.5 1.5 0 0 1 16 4.5V6"/><path d="M18.5 6l-.9 13.1a2 2 0 0 1-2 1.9H8.4a2 2 0 0 1-2-1.9L5.5 6"/><path d="M10 11v6M14 11v6"/></symbol>
+    <symbol id="i-restore" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3 3.5V9h5.5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 16.5V11M12 7.6h.01"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7.5 18.5 3 20l1.5-4.5z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M10.6 6.2A9.9 9.9 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3 3.6M6.3 6.9A16.6 16.6 0 0 0 2 12s3.6 7 10 7a9.7 9.7 0 0 0 4.2-.9"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/><path d="M3 3l18 18"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6 8.5-6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5l8 3v6c0 5-3.4 8.8-8 10-4.6-1.2-8-5-8-10v-6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12z"/></symbol>
+    <symbol id="i-devices" viewBox="0 0 24 24"><rect x="2" y="4" width="13" height="10" rx="2"/><path d="M5 18h7"/><rect x="16" y="10" width="6" height="11" rx="2"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 1 9-9c0 2-1.5 3-3 3h-2a2.5 2.5 0 0 0-2 4 2 2 0 0 1-2 2z"/><circle cx="7.5" cy="12" r="1.2"/><circle cx="9.5" cy="8" r="1.2"/><circle cx="14.5" cy="7.5" r="1.2"/></symbol>
+  </svg>
+
+  <!-- ==================== شاشة الدخول / التسجيل ==================== -->
+  <div id="authView" class="auth">
+    <section class="auth-side">
+      <div class="auth-side-content">
+        <span class="brand-mark brand-mark-lg">
+          <svg class="icon"><use href="#i-notes"/></svg>
+        </span>
+        <h1 class="auth-brand">ملاحظاتي</h1>
+        <p class="auth-tagline">دفتر ملاحظاتك الشخصي — سريع، خاص بالكامل، ويتحفظ في متصفحك.</p>
+        <ul class="feature-list">
+          <li><svg class="icon"><use href="#i-shield"/></svg><span><strong>خصوصية تامة:</strong> كل حساب يرى ملاحظاته فقط، ولا يطّلع عليها أحد غيرك.</span></li>
+          <li><svg class="icon"><use href="#i-bolt"/></svg><span><strong>سريع وخفيف:</strong> يعمل مباشرة دون خادم أو اتصال بالإنترنت.</span></li>
+          <li><svg class="icon"><use href="#i-devices"/></svg><span><strong>محفوظ محليًا:</strong> بياناتك في Local Storage داخل جهازك، ولا تُرسل لأي جهة.</span></li>
+          <li><svg class="icon"><use href="#i-palette"/></svg><span><strong>تصميم عصري:</strong> واجهة RTL كاملة مع وضع ليلي وألوان مميزة للملاحظات.</span></li>
+        </ul>
+        <p class="auth-legal">ملاحظة: الموقع تجريبي يعمل بالكامل داخل المتصفح. لا تستخدم كلمة مرور حقيقية لحساباتك في خدمات أخرى.</p>
+      </div>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <!-- تنبيه: لم يتم ربط Supabase بعد -->
+        <div id="configBanner" class="config-banner hidden" role="alert">
+          <svg class="icon"><use href="#i-info"/></svg>
+          <div>
+            <strong>يلزم ربط الموقع بـ Supabase</strong>
+            <p>افتح ملف <code>supabase-config.js</code> وضع فيه رابط مشروعك والمفتاح العام (anon)، ثم نفّذ ملف <code>supabase-schema.sql</code> من لوحة التحكم.</p>
+          </div>
+        </div>
+
+        <div id="authTabs" class="auth-tabs" role="tablist" aria-label="التنقل بين الدخول والتسجيل">
+          <button id="tabLogin" class="auth-tab is-active" role="tab" aria-selected="true" aria-controls="loginForm">تسجيل الدخول</button>
+          <button id="tabRegister" class="auth-tab" role="tab" aria-selected="false" aria-controls="registerForm">حساب جديد</button>
+          <span class="auth-tab-indicator" id="tabIndicator"></span>
+        </div>
+
+        <!-- تسجيل الدخول -->
+        <form id="loginForm" class="auth-form" novalidate>
+          <div class="form-head">
+            <h2>مرحبًا بعودتك 👋</h2>
+            <p>سجّل دخولك لمتابعة ملاحظاتك من حيث توقفت.</p>
+          </div>
+
+          <div class="field">
+            <label for="loginEmail">البريد الإلكتروني</label>
+            <div class="input-wrap">
+              <svg class="icon input-icon"><use href="#i-mail"/></svg>
+              <input id="loginEmail" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="name@example.com" />
+            </div>
+            <p class="field-error" id="loginEmailError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="loginPassword">كلمة المرور</label>
+            <div class="input-wrap">
+              <svg class="icon input-icon"><use href="#i-lock"/></svg>
+              <input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••" />
+              <button type="button" class="toggle-pass" data-target="loginPassword" aria-label="إظهار كلمة المرور">
+                <svg class="icon eye-open"><use href="#i-eye"/></svg>
+                <svg class="icon eye-closed"><use href="#i-eye-off"/></svg>
+              </button>
+            </div>
+            <p class="field-error" id="loginPasswordError" role="alert"></p>
+          </div>
+
+          <div class="forgot-row">
+            <button type="button" id="forgotBtn" class="link-btn">نسيت كلمة المرور؟</button>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>تسجيل الدخول</span>
+            <svg class="icon"><use href="#i-check"/></svg>
+          </button>
+          <p class="form-hint">لا تملك حسابًا؟ <button type="button" class="link-btn" data-goto="register">أنشئ حسابًا جديدًا</button></p>
+        </form>
+
+        <!-- إنشاء حساب -->
+        <form id="registerForm" class="auth-form hidden" novalidate>
+          <div class="form-head">
+            <h2>أنشئ حسابك ✨</h2>
+            <p>دقيقة واحدة فقط، ثم ابدأ في تدوين ملاحظاتك.</p>
+          </div>
+
+          <div class="field">
+            <label for="regName">الاسم</label>
+            <div class="input-wrap">
+              <svg class="icon input-icon"><use href="#i-user"/></svg>
+              <input id="regName" type="text" autocomplete="name" placeholder="اسمك الكامل" maxlength="50" />
+            </div>
+            <p class="field-error" id="regNameError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="regEmail">البريد الإلكتروني</label>
+            <div class="input-wrap">
+              <svg class="icon input-icon"><use href="#i-mail"/></svg>
+              <input id="regEmail" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="name@example.com" />
+            </div>
+            <p class="field-error" id="regEmailError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="regPassword">كلمة المرور</label>
+            <div class="input-wrap">
+              <svg class="icon input-icon"><use href="#i-lock"/></svg>
+              <input id="regPassword" type="password" autocomplete="new-password" placeholder="6 أحرف على الأقل" />
+              <button type="button" class="toggle-pass" data-target="regPassword" aria-label="إظهار كلمة المرور">
+                <svg class="icon eye-open"><use href="#i-eye"/></svg>
+                <svg class="icon eye-closed"><use href="#i-eye-off"/></svg>
+              </button>
+            </div>
+            <div class="strength">
+              <div class="strength-bar"><span id="strengthFill"></span></div>
+              <span id="strengthLabel" class="strength-label">—</span>
+            </div>
+            <p class="field-error" id="regPasswordError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="regConfirm">تأكيد كلمة المرور</label>
+            <div class="input-wrap">
+              <svg class="icon input-icon"><use href="#i-lock"/></svg>
+              <input id="regConfirm" type="password" autocomplete="new-password" placeholder="أعد كتابة كلمة المرور" />
+            </div>
+            <p class="field-error" id="regConfirmError" role="alert"></p>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>إنشاء الحساب</span>
+            <svg class="icon"><use href="#i-plus"/></svg>
+          </button>
+          <p class="form-hint">لديك حساب بالفعل؟ <button type="button" class="link-btn" data-goto="login">سجّل دخولك</button></p>
+        </form>
+
+        <!-- استعادة كلمة المرور عبر البريد -->
+        <form id="resetForm" class="auth-form hidden" novalidate>
+          <div class="form-head">
+            <h2>استعادة كلمة المرور 🔑</h2>
+            <p>سنرسل رابطًا آمنًا إلى بريدك لتعيين كلمة مرور جديدة.</p>
+          </div>
+
+          <div class="field">
+            <label for="resetEmail">البريد الإلكتروني</label>
+            <div class="input-wrap">
+              <svg class="icon input-icon"><use href="#i-mail"/></svg>
+              <input id="resetEmail" type="email" inputmode="email" autocomplete="email" dir="ltr" placeholder="name@example.com" />
+            </div>
+            <p class="field-error" id="resetEmailError" role="alert"></p>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>إرسال رابط الاستعادة</span>
+            <svg class="icon"><use href="#i-mail"/></svg>
+          </button>
+          <p class="form-hint"><button type="button" class="link-btn" data-goto="login">العودة إلى تسجيل الدخول</button></p>
+        </form>
+
+        <!-- تعيين كلمة مرور جديدة (بعد فتح الرابط من البريد) -->
+        <form id="newPassForm" class="auth-form hidden" novalidate>
+          <div class="form-head">
+            <h2>تعيين كلمة مرور جديدة 🔒</h2>
+            <p>اختر كلمة مرور قوية ثم تابع لدخول حسابك.</p>
+          </div>
+
+          <div class="field">
+            <label for="newPassPassword">كلمة المرور الجديدة</label>
+            <div class="input-wrap">
+              <svg class="icon input-icon"><use href="#i-lock"/></svg>
+              <input id="newPassPassword" type="password" autocomplete="new-password" placeholder="6 خانات على الأقل" />
+              <button type="button" class="toggle-pass" data-target="newPassPassword" aria-label="إظهار كلمة المرور">
+                <svg class="icon eye-open"><use href="#i-eye"/></svg>
+                <svg class="icon eye-closed"><use href="#i-eye-off"/></svg>
+              </button>
+            </div>
+            <p class="field-error" id="newPassPasswordError" role="alert"></p>
+          </div>
+
+          <div class="field">
+            <label for="newPassConfirm">تأكيد كلمة المرور</label>
+            <div class="input-wrap">
+              <svg class="icon input-icon"><use href="#i-lock"/></svg>
+              <input id="newPassConfirm" type="password" autocomplete="new-password" placeholder="أعد كتابة كلمة المرور" />
+            </div>
+            <p class="field-error" id="newPassConfirmError" role="alert"></p>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">
+            <span>حفظ كلمة المرور الجديدة</span>
+            <svg class="icon"><use href="#i-check"/></svg>
+          </button>
+          <p class="form-hint"><button type="button" class="link-btn" data-goto="login">العودة إلى تسجيل الدخول</button></p>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== التطبيق ==================== -->
+  <div id="appView" class="app hidden">
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand">
+          <span class="brand-mark"><svg class="icon"><use href="#i-notes"/></svg></span>
+          <span class="brand-name">ملاحظاتي</span>
+        </div>
+
+        <div class="search-box">
+          <svg class="icon"><use href="#i-search"/></svg>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="ابحث في ملاحظاتك..." aria-label="البحث في الملاحظات" />
+          <button id="clearSearch" class="search-clear hidden" aria-label="مسح البحث"><svg class="icon"><use href="#i-close"/></svg></button>
+        </div>
+
+        <div class="header-actions">
+          <button id="newNoteBtn" class="btn btn-primary">
+            <svg class="icon"><use href="#i-plus"/></svg>
+            <span class="btn-label">ملاحظة جديدة</span>
+          </button>
+
+          <button id="themeToggle" class="icon-btn" aria-label="تبديل الوضع الليلي">
+            <svg class="icon ic-moon"><use href="#i-moon"/></svg>
+            <svg class="icon ic-sun"><use href="#i-sun"/></svg>
+          </button>
+
+          <div class="user-menu-wrap">
+            <button id="userMenuBtn" class="avatar-btn" aria-haspopup="true" aria-expanded="false">
+              <span id="userAvatar" class="avatar">؟</span>
+            </button>
+            <div id="userMenu" class="user-menu hidden" role="menu">
+              <div class="user-menu-head">
+                <strong id="menuName">—</strong>
+                <span id="menuEmail" dir="ltr">—</span>
+              </div>
+              <div class="user-menu-stats">
+                <div><b id="statNotes">0</b><span>ملاحظة</span></div>
+                <div><b id="statPinned">0</b><span>مثبتة</span></div>
+                <div><b id="statFav">0</b><span>مفضلة</span></div>
+              </div>
+              <button id="exportBtn" class="menu-item" role="menuitem">
+                <svg class="icon"><use href="#i-download"/></svg>
+                <span>تصدير ملاحظاتي (JSON)</span>
+              </button>
+              <button id="logoutBtn" class="menu-item danger" role="menuitem">
+                <svg class="icon"><use href="#i-logout"/></svg>
+                <span>تسجيل الخروج</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="page">
+      <div class="toolbar">
+        <div class="chips" id="filterChips" role="tablist" aria-label="تصفية الملاحظات">
+          <button class="chip is-active" data-filter="all" role="tab" aria-selected="true">الكل <span class="chip-count" id="countAll">0</span></button>
+          <button class="chip" data-filter="pinned" role="tab" aria-selected="false">المثبتة <span class="chip-count" id="countPinned">0</span></button>
+          <button class="chip" data-filter="favorites" role="tab" aria-selected="false">المفضلة <span class="chip-count" id="countFav">0</span></button>
+          <button class="chip" data-filter="trash" role="tab" aria-selected="false">المحذوفة <span class="chip-count" id="countTrash">0</span></button>
+        </div>
+        <p class="result-info" id="resultInfo"></p>
+      </div>
+
+      <main class="app-main">
+        <div id="notesGrid" class="notes-grid"></div>
+
+        <div id="emptyState" class="empty-state hidden">
+          <div class="empty-visual">
+            <svg class="icon"><use href="#i-notes"/></svg>
+          </div>
+          <h3 id="emptyTitle">لا توجد ملاحظات بعد</h3>
+          <p id="emptyText">ابدأ بتدوين أول فكرة لك الآن، وستظهر هنا مباشرة.</p>
+          <button id="emptyAction" class="btn btn-primary">
+            <svg class="icon"><use href="#i-plus"/></svg>
+            <span>إنشاء ملاحظة</span>
+          </button>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== محرّر الملاحظة ==================== -->
+  <div id="noteModal" class="backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+    <div class="modal modal-note">
+      <header class="modal-head">
+        <h2 id="editorTitle">ملاحظة جديدة</h2>
+        <button id="closeEditor" class="icon-btn" aria-label="إغلاق المحرر"><svg class="icon"><use href="#i-close"/></svg></button>
+      </header>
+
+      <div class="modal-body">
+        <input id="noteTitleInput" class="input-title" type="text" maxlength="120" placeholder="عنوان الملاحظة" />
+        <div class="color-row" id="colorRow" role="group" aria-label="لون الملاحظة">
+          <button class="swatch" data-color="plain"   style="--sw:var(--surface); --sw-b:var(--border)"  aria-label="بدون لون"></button>
+          <button class="swatch" data-color="amber"   style="--sw:#fcd34d; --sw-b:#f59e0b" aria-label="كهرماني"></button>
+          <button class="swatch" data-color="rose"    style="--sw:#fda4af; --sw-b:#f43f5e" aria-label="وردي"></button>
+          <button class="swatch" data-color="violet"  style="--sw:#c4b5fd; --sw-b:#8b5cf6" aria-label="بنفسجي"></button>
+          <button class="swatch" data-color="emerald" style="--sw:#6ee7b7; --sw-b:#10b981" aria-label="زمردي"></button>
+          <button class="swatch" data-color="sky"     style="--sw:#7dd3fc; --sw-b:#0ea5e9" aria-label="سماوي"></button>
+          <button class="swatch" data-color="slate"   style="--sw:#94a3b8; --sw-b:#64748b" aria-label="رمادي"></button>
+        </div>
+        <textarea id="noteBodyInput" class="input-body" placeholder="اكتب ملاحظتك هنا..." spellcheck="true"></textarea>
+      </div>
+
+      <footer class="modal-foot">
+        <div class="foot-start">
+          <span id="autoSaveHint" class="autosave-hint"></span>
+        </div>
+        <div class="foot-end">
+          <button id="deleteFromEditor" class="btn btn-ghost btn-danger hidden">
+            <svg class="icon"><use href="#i-trash"/></svg>
+            <span>حذف</span>
+          </button>
+          <button id="cancelEditor" class="btn btn-ghost">إغلاق</button>
+          <button id="saveNoteBtn" class="btn btn-primary">
+            <svg class="icon"><use href="#i-check"/></svg>
+            <span>حفظ الملاحظة</span>
+          </button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ==================== نافذة التأكيد ==================== -->
+  <div id="confirmModal" class="backdrop hidden" role="alertdialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="modal modal-confirm">
+      <div class="confirm-icon"><svg class="icon"><use href="#i-trash"/></svg></div>
+      <h2 id="confirmTitle">تأكيد الحذف</h2>
+      <p id="confirmMessage">هل أنت متأكد من حذف هذه الملاحظة؟</p>
+      <div class="confirm-actions">
+        <button id="confirmCancel" class="btn btn-ghost">إلغاء</button>
+        <button id="confirmOk" class="btn btn-danger-solid">نعم، احذف</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Supabase JS v2 عبر CDN + إعدادات المشروع + منطق التطبيق -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

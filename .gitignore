@@ -1,0 +1,15 @@
+# بيانات سرية — لا تُرفع أبدًا
+.env
+.env.*
+*.env
+*service_role*
+*secret*
+*secret_key*
+*credentials*
+supabase/local*.toml
+
+# أنظمة
+.DS_Store
+Thumbs.db
+node_modules/
+__pycache__/
